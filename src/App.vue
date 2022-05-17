@@ -5,6 +5,7 @@
     <div>
       <i class="ithei ithei-lishi"></i>
     </div>
+    <van-button >主要按钮</van-button>
   </div>
 </template>
 

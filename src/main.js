@@ -5,10 +5,14 @@ import store from './store'
 
 import './styles/index.less'
 
+import { Button } from 'vant'
+
+Vue.use(Button)
+
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')
