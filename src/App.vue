@@ -6,6 +6,9 @@
       <i class="ithei ithei-lishi"></i>
     </div>
     <van-button >主要按钮</van-button>
+    <div id="one">
+      hello word
+    </div>
   </div>
 </template>
 
@@ -15,4 +18,10 @@ export default {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+#one {
+  width: 300px;
+  height: 50px;
+  background: gold;
+}
+</style>
