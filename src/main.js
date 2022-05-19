@@ -8,12 +8,10 @@ import './styles/index.less'
 import 'amfe-flexible'
 
 // 自动引入vant组件
-import { Button, NavBar, Form, Field } from 'vant'
+import Vant from 'vant'
+import 'vant/lib/index.css'
 
-Vue.use(Form)
-Vue.use(Field)
-Vue.use(NavBar)
-Vue.use(Button)
+Vue.use(Vant)
 
 Vue.config.productionTip = false
 

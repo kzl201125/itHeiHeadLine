@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import Login from '@/views/login/MyIndex'
+// import Login from '@/views/login'
 
 Vue.use(VueRouter)
 
@@ -13,7 +13,7 @@ const routes = [{
   path: '/login',
   // component: Login,
   component: () =>
-    import('@/views/login/MyIndex'),
+    import('@/views/login'),
   name: 'login'
 }
 ]
