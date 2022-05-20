@@ -1,6 +1,12 @@
 <template>
   <div class="login-container">
-    <van-nav-bar class="page-nav-bar" title="标题" />
+    <van-nav-bar class="page-nav-bar" title="登录" >
+      <van-icon
+        slot="left"
+        name="cross"
+        @click="$router.back()"
+      />
+    </van-nav-bar>
     <van-form @submit="onSubmit" ref="form">
       <van-field
         v-model="user.mobile"
@@ -53,6 +59,7 @@
 <script>
 import { loginAPI, getSmsCodeAPI } from '@/api'
 export default {
+  name: 'Login',
   data () {
     return {
       user: {
@@ -91,6 +98,7 @@ export default {
         console.log('登录成功', res)
         this.$store.commit('setUser', res.data.data)
         this.$toast.success('登陆成功')
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
