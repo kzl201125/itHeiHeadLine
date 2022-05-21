@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import state from '@/store'
 
 export const login = data => {
   return request({
@@ -18,9 +17,6 @@ export const getSmsCode = mobile => {
 export const getUserInfo = () => {
   return request({
     url: '/v1_0/user',
-    method: 'get',
-    headers: {
-      Authorization: `Bearer ${state.state.user.token}`
-    }
+    method: 'get'
   })
 }
