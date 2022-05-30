@@ -11,9 +11,6 @@ import 'amfe-flexible'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 import '@/utils/dayjs'
-import Follow from '@/components/FollowButton.vue'
-
-Vue.component('Follow', Follow)
 
 Vue.use(Vant)
 Vue.directive('tab', {
