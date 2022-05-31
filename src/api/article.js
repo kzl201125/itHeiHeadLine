@@ -47,3 +47,56 @@ export const getArticleComment = params => {
     data: params
   })
 }
+
+// 收藏文章
+export const getArticleCollect = target => {
+  return request({
+    url: '/v1_0/article/collections',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+}
+
+// 取消收藏
+export const getArticleCollectDel = target => {
+  return request({
+    url: `/v1_0/article/collections/${target}`,
+    method: 'DELETE'
+  })
+}
+// 对文章点赞
+export const getArticleLiking = target => {
+  return request({
+    url: '/v1_0/article/likings',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+}
+// 对文章不喜欢
+export const getArticleLike = target => {
+  return request({
+    url: '/v1_0/article/dislikes',
+    method: 'post',
+    data: {
+      target
+    }
+  })
+}
+// 取消对文章点赞
+export const getArticleLikingDel = target => {
+  return request({
+    url: `/v1_0/article/likings/${target}`,
+    method: 'DELETE'
+  })
+}
+// 取消对文章不喜欢
+export const getArticleLikeDel = target => {
+  return request({
+    url: `/v1_0/article/dislikes/${target}`,
+    method: 'DELETE'
+  })
+}

@@ -1,33 +1,31 @@
 <template>
- <div>
-   <van-cell class="comment-item" >
-    <van-image
-      slot="icon"
-      class="avatar"
-      round
-      fit="cover"
-      :src="artList.aut_photo"
-    />
-    <div slot="title" class="title-wrap">
-      <div class="user-name">{{artList.aut_name}}</div>
-      <van-button
-        class="like-btn"
-        icon="good-job-o"
-      >赞</van-button>
-    </div>
-
-    <div slot="label">
-      <p class="comment-content">{{artList.content}}</p>
-      <div class="bottom-info">
-        <span class="comment-pubdate">{{artList.pubdate | RelativeTime }}</span>
-        <van-button
-          class="reply-btn"
-          round
-        >回复 {{artList.reply_count}}</van-button>
+  <div>
+    <van-cell class="comment-item">
+      <van-image
+        slot="icon"
+        class="avatar"
+        round
+        fit="cover"
+        :src="artList.aut_photo"
+      />
+      <div slot="title" class="title-wrap">
+        <div class="user-name">{{ artList.aut_name }}</div>
+        <van-button class="like-btn" icon="good-job-o">赞</van-button>
       </div>
-    </div>
-  </van-cell>
- </div>
+
+      <div slot="label">
+        <p class="comment-content">{{ artList.content }}</p>
+        <div class="bottom-info">
+          <span class="comment-pubdate">{{
+            artList.pubdate | RelativeTime
+          }}</span>
+          <van-button class="reply-btn" round @click="$emit('article_reply',artList)"
+            >回复 {{ artList.reply_count }}</van-button
+          >
+        </div>
+      </div>
+    </van-cell>
+  </div>
 </template>
 
 <script>
@@ -40,16 +38,10 @@ export default {
     }
   },
   data () {
-    return {
-
-    }
+    return {}
   },
-  components: {
-
-  },
-  created () {
-
-  },
+  components: {},
+  created () {},
   mounted () {},
   methods: {},
   computed: {},

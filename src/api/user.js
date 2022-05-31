@@ -50,3 +50,25 @@ export const deleteUserChannels = target => {
     method: 'DELETE'
   })
 }
+// 获取个人信息
+export const getUserProfile = params => {
+  return request({
+    url: '/v1_0/user/profile',
+    params
+  })
+}
+// 编辑用户个人资料
+export const getUpdateProfile = data => {
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH',
+    data
+  })
+}
+export const getUpdatePhotoProfile = data => {
+  return request({
+    url: '/v1_0/user/photo',
+    method: 'PATCH',
+    data
+  })
+}

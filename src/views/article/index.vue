@@ -79,7 +79,11 @@
           v-html="articleDetail.content"
         ></div>
         <van-divider>正文结束</van-divider>
-        <articledDscuss :source="articleDetail.art_id" ></articledDscuss>
+        <articledDscuss
+          :commentList="commentList"
+          :source="articleDetail.art_id"
+          @article_reply="articleReply"
+        ></articledDscuss>
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -114,8 +118,17 @@
         :badge="articleDetail.comm_count"
         color="#777"
       />
-      <van-icon color="#777" name="star-o" />
-      <van-icon color="#777" name="good-job-o" />
+      <articleCollect
+        v-if="articleDetail.art_id"
+        :is_collected.sync="articleDetail.is_collected"
+        :artid="articleDetail.art_id"
+      />
+      <articleLike
+        v-if="articleDetail.art_id"
+        :artid="articleDetail.art_id"
+        :attitude.sync="articleDetail.attitude"
+        :like_count.sync="articleDetail.like_count"
+      />
       <van-icon name="share" color="#777777"></van-icon>
     </div>
     <van-popup
@@ -124,7 +137,23 @@
       closeable
       :style="{ height: '30%' }"
     >
-      <articledComment :ArtComment="articleDetail" @updateShow="updateShowFn"></articledComment>
+      <articledComment
+        :ArtComment="articleDetail.art_id"
+        @updateShow="updateShowFn"
+      ></articledComment>
+    </van-popup>
+    <van-popup
+      v-model="isPostShowReply"
+      position="bottom"
+      :style="{ height: '100%' }"
+    >
+      <articleReply
+        v-if="isPostShowReply"
+        :articleRep="articleRep"
+        @close="isPostShowReply = false"
+        :art_id="article"
+      >
+      </articleReply>
     </van-popup>
     <!-- /底部区域 -->
   </div>
@@ -138,13 +167,24 @@ import {
   getArticlrFollowDelAPI
 } from '@/api'
 import { ImagePreview } from 'vant'
+// 列表
 import articledDscuss from './components/articledDscuss.vue'
+// 写评论弹出框
 import articledComment from './components/article-comment.vue'
+// 评论的评论弹出框
+import articleReply from './components/articleReply.vue'
+// 收藏组件
+import articleCollect from './components/article-collect.vue'
+// 点赞组件
+import articleLike from './components/article-like.vue'
 export default {
   name: 'ArticleIndex',
   components: {
     articledDscuss,
-    articledComment
+    articledComment,
+    articleReply,
+    articleCollect,
+    articleLike
   },
   props: {
     article: {
@@ -152,13 +192,22 @@ export default {
       required: true
     }
   },
+  // 提供方
+  // provide () {
+  //   return {
+  //     articleId: this.article
+  //   }
+  // },
   data () {
     return {
       articleDetail: {},
       loading: true,
       notFound: false,
       followLoading: false,
-      isPostShow: false
+      isPostShow: false,
+      commentList: [],
+      isPostShowReply: false,
+      articleRep: {}
     }
   },
   computed: {},
@@ -224,8 +273,14 @@ export default {
       this.followLoading = false
     },
     updateShowFn (value) {
-      this.isPostShow = value
-      this.getArticlrDetail()
+      this.isPostShow = false
+      this.commentList.unshift(value)
+      this.articleDetail.comm_count++
+    },
+    articleReply (value) {
+      this.articleRep = value
+      console.log('rep', this.articleRep)
+      this.isPostShowReply = true
     }
   }
   // model: {

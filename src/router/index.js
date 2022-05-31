@@ -52,6 +52,10 @@ const routes = [
     name: 'search'
   },
   {
+    path: '/user/profile',
+    component: () => import('@/views/user')
+  },
+  {
     path: '/article/:article',
     component: () => import('@/views/article'),
     name: 'article',

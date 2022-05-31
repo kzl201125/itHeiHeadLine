@@ -26,6 +26,7 @@ Vue.directive('tab', {
     tab.className = 'van-tabs__wrap van-tabs__wrap--scrollable'
   }
 })
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,15 +1,20 @@
 <template>
   <div>
-    评论
     <van-list
       v-model="loading"
       :finished="finished"
       finished-text="没有更多了"
       :error.sync="error"
       error-text="请求失败，点击重新加载"
+      :immediate-check="false"
       @load="onLoad"
     >
-    <articleList :artList="item" v-for="item in list" :key="item.com_id"></articleList>
+      <articleList
+        @article_reply="$emit('article_reply', $event)"
+        :artList="item"
+        v-for="item in commentList"
+        :key="item.com_id"
+      ></articleList>
     </van-list>
   </div>
 </template>
@@ -23,11 +28,21 @@ export default {
     source: {
       type: [String, Number, Object],
       required: true
+    },
+    commentList: {
+      type: Array,
+      default: () => []
+    },
+    type: {
+      type: String,
+      default: 'a',
+      validator: function (value) {
+        return ['a', 'c'].includes(value)
+      }
     }
   },
   data () {
     return {
-      list: [],
       loading: false,
       finished: false,
       error: false,
@@ -38,19 +53,22 @@ export default {
   components: {
     articleList
   },
-  created () {},
+  created () {
+    this.loading = true
+    this.onLoad()
+  },
   mounted () {},
   methods: {
     async onLoad () {
       try {
         const res = await getArticleDscussAPI({
-          type: 'a',
+          type: this.type,
           source: this.source,
           offset: this.offset,
           limit: this.limit
         })
-        this.list.push(...res.data.data.results)
-        console.log('this.list', this.list)
+        this.commentList.push(...res.data.data.results)
+        console.log('this.list', this.commentList)
         console.log(res)
         this.loading = false
         if (res.data.data.length) {
